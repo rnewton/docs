@@ -16,7 +16,7 @@ git clone https://github.com/triggermesh/poc-adapters.git
 cd poc-adapters
 ```
 
-1. Use the `adaptergen` command to scaffold out the new project:
+2. Use the `adaptergen` command to scaffold out the new project:
 
 ```sh
 cd hack/adaptergen
@@ -33,7 +33,7 @@ demotarget/Dockerfile # The Dockerfile for our adapter.
 demotarget/pkg/adapter.go # The home for our core adapter code.
 ```
 
-1. Navigate to the `demotarget/pkg/adapter/` directory and view the contents of the `adapter.go` file:
+3. Navigate to the `demotarget/pkg/adapter/` directory and view the contents of the `adapter.go` file:
 
 If we look here we can see that we have some basic boilerplate code to get our adapter up and running, at the moment all the adapter is doing is recieving a cloudevnet and logging it to the console. Let us review the adapter code as is.
 
@@ -116,7 +116,7 @@ func (a *demotargetadapter) dispatch(ctx context.Context, event cloudevents.Even
 We can see that we have some basic boilerplate code to get our adapter up and running, at the moment all the adapter is doing is recieving a cloudevent and logging it to the console.
 
 
-1. Navigate to the `poc-adapters/demotarget/cmd` directory and confirm that the new adapter builds:
+4. Navigate to the `poc-adapters/demotarget/cmd` directory and confirm that the new adapter builds:
 
 ```sh
 cd demotarget/cmd
@@ -124,7 +124,7 @@ go mod tidy
 go run .
 ```
 
-1. Send it an event and verify the expected results:
+5. Send it an event and verify the expected results:
 
 ```sh
 curl -v "http://localhost:8080" \
@@ -153,11 +153,11 @@ curl -v "http://localhost:8080" \
 {"fromName":"richard","toName":"bob","message":"hello"}%
 ```
 
-1. Modify the adapter to your logic:
+6. Modify the adapter to your logic:
 
 Now the fun part! In just a few steps we have all the biolerplate done and we can start writing our own logic under the `dispatch` function to handle the recieved event as we wish.
 
-1. When you are ready to deploy, build and publish the container image:
+7. When you are ready to deploy, build and publish the container image:
 
 Docker:
 
@@ -172,7 +172,7 @@ Gcloud:
 gcloud builds submit --tag <user-name>/<image-name> .
 ```
 
-1. Create a manifest.yaml file:
+8. Create a manifest.yaml file:
 
 ```yaml
 apiVersion: serving.knative.dev/v1
@@ -186,7 +186,7 @@ spec:
     - image: <image-name>
 ```
 
-1. Apply this manifest:
+9. Apply this manifest:
 
 ```sh
 kubectl apply -f manifest.yaml
@@ -200,7 +200,7 @@ NAME          URL                                            LATESTCREATED      
 demo-service  http://demo-service.dmo.10.64.140.43.xip.io    demo-service-00001     demo-service-00001     True
 ```
 
-1. Send it a Cloudevent to trigger the service and verify the expected results:
+10. Send it a Cloudevent to trigger the service and verify the expected results:
 
 ```sh
 curl -v "http://demo-service.dmo.10.64.140.43.xip.io " \
@@ -258,7 +258,7 @@ type EventData struct {
 }
 ```
 
-1. Update the `dispatch()` function found in the `adapter.go` file.
+2. Update the `dispatch()` function found in the `adapter.go` file.
 
 ```go
 func (a *demotargetadapter) dispatch(ctx context.Context, event cloudevents.Event) (*cloudevents.Event, cloudevents.Result) {
@@ -275,7 +275,7 @@ return &event, cloudevents.ResultACK
 }
 ```
 
-1. Run the adapter and test the results:
+3. Run the adapter and test the results:
 
 ```sh
 cd demotarget/cmd
@@ -283,7 +283,7 @@ go mod tidy
 go run .
 ```
 
-1. Send it a Cloudevent to trigger the service and verify the expected results:
+4. Send it a Cloudevent to trigger the service and verify the expected results:
 
 ```sh
 curl -v "https://localhost:8080" \
