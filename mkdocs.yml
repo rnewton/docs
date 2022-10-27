@@ -99,19 +99,6 @@ nav:
       - Routing: apis/routing.md
       - Transformation: apis/flow.md
       - Functions: apis/extensions.md
-    - Enterprise:
-      - '': cloud/index.md
-      - Bridge: cloud/bridge.md
-      - Sources: cloud/sources/sources.md
-      - Targets: cloud/targets/targets.md
-      - Secrets: cloud/secrets.md
-      - Creating a Service: guides/creatingaservice.md
-      - Using the CLI:
-        - Installation: tm/install.md
-        - Configuration: tm/configuration.md
-        - Usage: tm/usage.md
-        - Registry: tm/registry.md
-        - Serverless Manifest: tm/serverless.md
 
 theme:
   name: material
